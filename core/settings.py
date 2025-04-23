@@ -1,4 +1,6 @@
 from pathlib import Path
+import os
+from django.utils.translation import gettext_lazy as _
 
 from dotenv import dotenv_values
 
@@ -32,7 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog',
+    'taggit'
 ]
 
 MIDDLEWARE = [
@@ -99,6 +102,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('fr', _('French')),
+]
 
 TIME_ZONE = 'UTC'
 
