@@ -4,6 +4,8 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
+from django.utils.translation import gettext_lazy as _
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog',
+    'taggit'
 ]
 
 MIDDLEWARE = [
@@ -100,7 +103,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = [
+    ('en', _('English')),
+    ('fr', _('French')),
+]
+
+
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 

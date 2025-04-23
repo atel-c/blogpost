@@ -1,3 +1,14 @@
 import django
+import os
 
-print(f"Running Django version: {django.get_version()}")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+django.setup()
+
+
+from blog.models import Author
+
+#Author.objects.all().delete()
+a1 = Author.objects.all()
+print(a1)
+
+
