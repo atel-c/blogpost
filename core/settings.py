@@ -6,6 +6,8 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
+from django.utils.translation import gettext_lazy as _
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -108,7 +110,7 @@ LANGUAGES = [
     ('fr', _('French')),
 ]
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
