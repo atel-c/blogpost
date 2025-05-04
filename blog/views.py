@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
+from blog.models import Post
 
 def index(request):
-    return HttpResponse("Bienvenue sur mon admirable blog.")
+    posts = Post.objects.values()
+   
+    return JsonResponse(list(posts), safe=False)
