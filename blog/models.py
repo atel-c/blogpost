@@ -155,3 +155,21 @@ class PostAuthor(models.Model):
     
     def __str__(self):
         return f"{self.author.name} on {self.post.title}"
+    
+
+# ajout du modèle HomepagePlacement pour les postes mis en exergue et les postes éditoriaux
+class HomepagePlacement(models.Model):
+    TYPE_CHOICES = [
+        ('FEATURED', 'À la une'),
+        ('EDITORIAL', 'Éditorial'),
+        ('SANS', 'Sans'),
+    ]
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='placement')
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='SANS')
+    
+    class Meta:
+        verbose_name = _("Placement en page d'accueil")
+        verbose_name_plural = _("Placements en page d'accueil")
+    
+    def __str__(self):
+        return f"{self.post.title} - {self.get_type_display()}"

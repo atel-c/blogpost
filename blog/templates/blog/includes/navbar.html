@@ -1,0 +1,35 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'blog:home' %}">
+            <i class="fas fa-blog me-2"></i>Blog
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-th-list me-1"></i>Catégories
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-sm rounded-3">
+                        <li><a class="dropdown-item py-2 px-3" href="{% url 'blog:category_posts' 'politics' %}"><i class="fas fa-landmark me-2"></i>Politique</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="{% url 'blog:category_posts' 'culture' %}"><i class="fas fa-theater-masks me-2"></i>Culture</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="{% url 'blog:category_posts' 'philosophy' %}"><i class="fas fa-brain me-2"></i>Philosophie</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="{% url 'blog:category_posts' 'technology' %}"><i class="fas fa-microchip me-2"></i>Technologie</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="{% url 'blog:category_posts' 'lifestyle' %}"><i class="fas fa-heart me-2"></i>Mode de vie</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:about' %}"><i class="fas fa-info-circle me-1"></i>À propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:contact' %}"><i class="fas fa-envelope me-1"></i>Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

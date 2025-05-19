@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Author, Post, PostCategory, PostAuthor, Comment, Contact
+from django.utils.translation import gettext as _
+from .models import Category, Author, Post, PostCategory, PostAuthor, Comment, Contact, HomepagePlacement
 
 
 class PostCategoryInline(admin.TabularInline):
@@ -23,6 +24,10 @@ class CommentInline(admin.TabularInline):
     show_change_link = True
     can_delete = True
 
+class HomepagePlacementInline(admin.TabularInline):
+    model = HomepagePlacement
+    extra = 1  # Nombre de formulaires vides affichés par défaut
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'get_name_display', 'slug']
@@ -35,17 +40,18 @@ class AuthorAdmin(admin.ModelAdmin):
     search_fields = ['name', 'email']
     list_filter = ['name']
     
-  
+
+
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'status', 'created_at', 'updated_at', 'display_categories', 'display_authors', 'has_image']
+    list_display = ['title', 'status', 'created_at', 'get_placement_type','display_categories', 'display_authors', 'has_image']
     list_filter = ['status', 'created_at', 'categories']
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'created_at'
-    inlines = [PostCategoryInline, PostAuthorInline, CommentInline]
+    inlines = [PostCategoryInline, PostAuthorInline, CommentInline, HomepagePlacementInline]
     readonly_fields = ['created_at', 'updated_at', 'image_preview']
     fieldsets = [
         (None, {
@@ -84,6 +90,12 @@ class PostAdmin(admin.ModelAdmin):
                               obj.imgpath, obj.imgcaption)
         return "Aucune image"
     image_preview.short_description = "Aperçu de l'image"
+
+    def get_placement_type(self, obj):
+        if hasattr(obj, 'placement'):
+            return obj.placement.get_type_display()
+        return "-"
+    get_placement_type.short_description = _('Placement Type')  # Translated header
 
 
 @admin.register(Comment)

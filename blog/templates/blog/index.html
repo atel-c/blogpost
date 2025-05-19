@@ -1,0 +1,132 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row g-4">
+  <!-- Éditorial (colonne gauche) -->
+  <div class="col-md-7">
+    {% if editorial_post %}
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          <h2 class="h4 mb-0">
+            <i class="fas fa-star me-2"></i>Éditorial
+          </h2>
+        </div>        
+        <div class="card-body">
+          <h3 class="h5 mb-3 text-center">{{ editorial_post.title }}</h3>
+
+          {% if editorial_post.imgpath %}
+            <div class="text-center mb-3">
+              <img src="/media/{{ editorial_post.imgpath }}" 
+                  class="img-fluid rounded"
+                  alt="{{ editorial_post.imgcaption }}"
+              >              
+              {% if editorial_post.imgcaption %}
+                <p class="text-muted small mt-1 fst-italic">{{ editorial_post.imgcaption }}</p>
+              {% endif %}
+            </div>
+          {% endif %}          
+          <p class="text-muted small mb-3 text-center">
+            {% for author in editorial_post.authors.all %}
+              <span class="me-3"><i class="fas fa-user me-2"></i>{{ author.name }}</span>
+            {% endfor %}
+            <br>
+            <i class="fas fa-calendar-alt me-2"></i>{{ editorial_post.created_at|date:"d M Y" }}
+          </p>
+          <div class="text-muted mb-4">
+            {{ editorial_post.content|safe }}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>Aucun éditorial disponible pour le moment.
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Posts superposés (colonne droite) -->
+  <div class="col-md-5">
+    <!-- À la une -->
+    {% if featured_post %}
+      <div class="card mb-4">        
+        <div class="card-header bg-success text-white">
+          <h2 class="h5 mb-0"><i class="fas fa-fire me-2"></i>À la une</h2>
+        </div>        
+        <div class="card-body">
+          <h3 class="h6 mb-3 text-center">{{ featured_post.title }}</h3>
+
+          {% if featured_post.imgpath %}
+            <div class="text-center mb-3">
+              <img src="/media/{{ featured_post.imgpath }}" 
+                   class="img-fluid rounded" 
+                   alt="{{ featured_post.imgcaption }}"
+              >              
+              {% if featured_post.imgcaption %}
+                <p class="text-muted small mt-1 fst-italic">{{ featured_post.imgcaption }}</p>
+              {% endif %}
+            </div>
+          {% endif %}          
+          <p class="text-muted small mb-3 text-center">
+            {% for author in featured_post.authors.all %}
+              <span class="me-3"><i class="fas fa-user me-2"></i>{{ author.name }}</span>
+            {% endfor %}
+            <br>
+            <i class="fas fa-calendar-alt me-2"></i>{{ featured_post.created_at|date:"d M Y" }}
+          </p>          <p class="card-text text-muted small">{{ featured_post.content|safe|truncatewords_html:25 }}</p>
+          <div class="text-center">
+            <a href="{{ featured_post.get_absolute_url }}" class="btn btn-outline-success btn-sm">
+              <i class="fas fa-arrow-right me-1"></i>Lire plus
+            </a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-success mb-4">
+        <i class="fas fa-info-circle me-2"></i>Aucun article à la une pour le moment.
+      </div>
+    {% endif %}
+
+    <!-- Dernier article -->
+    {% if latest_post %}
+      <div class="card">        
+        <div class="card-header bg-info text-white">
+          <h2 class="h5 mb-0"><i class="fas fa-clock me-2"></i>Dernier article</h2>
+        </div>       
+        <div class="card-body">
+          <h3 class="h6 mb-3 text-center">{{ latest_post.title }}</h3>
+
+          {% if latest_post.imgpath %}
+            <div class="text-center mb-3">
+              <img src="/media/{{ latest_post.imgpath }}" 
+                   class="img-fluid rounded" 
+                   alt="{{ latest_post.imgcaption }}"
+              >              
+              {% if latest_post.imgcaption %}
+                <p class="text-muted small mt-1 fst-italic">{{ latest_post.imgcaption }}</p>
+              {% endif %}
+            </div>
+          {% endif %}          
+          <p class="text-muted small mb-3 text-center">
+            {% for author in latest_post.authors.all %}
+              <span class="me-3"><i class="fas fa-user me-2"></i>{{ author.name }}</span>
+            {% endfor %}
+            <br>
+            <i class="fas fa-calendar-alt me-2"></i>{{ latest_post.created_at|date:"d M Y" }}
+          </p>          
+          <p class="card-text text-muted small">{{ latest_post.content|safe|truncatewords_html:25 }}</p>
+          <div class="text-center">
+            <a href="{{ latest_post.get_absolute_url }}" class="btn btn-outline-info btn-sm">
+              <i class="fas fa-arrow-right me-1"></i>Lire plus
+            </a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>Aucun article récent disponible.
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
