@@ -9,6 +9,7 @@ Django==5.2
 django-taggit==6.1.0
 Faker==37.1.0
 frozenlist==1.5.0
+gunicorn==23.0.0
 idna==3.10
 multidict==6.4.3
 propcache==0.3.1
